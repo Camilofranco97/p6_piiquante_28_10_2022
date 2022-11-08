@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const userRoutes = require("./routes/user");
+// const sauceRoutes = require("./routes/sauce");
+
 const app = express();
 
 app.use(express.json());
@@ -34,19 +37,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/sauces", (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({ message: "objet créé!" });
-});
-app.get("/api/sauces", (req, res, next) => {
-  const sauces = {
-    userId: "jiji25",
-    name: "piri piri",
-    manufacturer: "lidl",
-    description: "sauce piquante",
-  };
-  res.status(200).json(sauces);
-  next();
-});
+app.use("/api/auth", userRoutes);
 
 module.exports = app;
